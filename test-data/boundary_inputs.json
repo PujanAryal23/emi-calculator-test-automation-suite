@@ -1,0 +1,45 @@
+{
+  "principal": {
+    "field": "loanamount",
+    "slider_min": 0,
+    "slider_max": 20000000,
+    "cases": [
+      {"value": 1000, "description": "at slider lower visual mark"},
+      {"value": 20000000, "description": "at slider upper visual mark (2 crore)"},
+      {"value": 20000001, "description": "one above the visible max"},
+      {"value": 1, "description": "smallest positive"}
+    ]
+  },
+  "rate": {
+    "field": "loaninterest",
+    "slider_min": 5,
+    "slider_max": 20,
+    "cases": [
+      {"value": 5, "description": "lower slider bound"},
+      {"value": 20, "description": "upper slider bound"},
+      {"value": 4.99, "description": "below slider lower bound"},
+      {"value": 20.01, "description": "above slider upper bound"},
+      {"value": 8.5, "description": "common decimal rate"}
+    ]
+  },
+  "tenure_years": {
+    "field": "loanterm",
+    "slider_min": 0,
+    "slider_max": 30,
+    "cases": [
+      {"value": 1, "description": "shortest reasonable term"},
+      {"value": 30, "description": "upper slider bound"},
+      {"value": 31, "description": "above slider upper bound"}
+    ]
+  },
+  "tenure_months": {
+    "field": "loanterm",
+    "slider_min": 0,
+    "slider_max": 360,
+    "cases": [
+      {"value": 1, "description": "1 month tenure"},
+      {"value": 360, "description": "max months"},
+      {"value": 361, "description": "above max"}
+    ]
+  }
+}
