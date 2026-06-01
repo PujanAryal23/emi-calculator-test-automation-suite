@@ -1,0 +1,38 @@
+{
+  "common_scenarios": [
+    {"principal": 5000000, "rate": "9", "tenure_years": 20, "description": "default 50L @ 9% for 20y"},
+    {"principal": 1000000, "rate": "10", "tenure_years": 10, "description": "10L @ 10% for 10y"},
+    {"principal": 2500000, "rate": "8.5", "tenure_years": 15, "description": "25L @ 8.5% for 15y"},
+    {"principal": 10000000, "rate": "7.5", "tenure_years": 30, "description": "1Cr @ 7.5% for 30y"},
+    {"principal": 500000, "rate": "12", "tenure_years": 5, "description": "5L @ 12% for 5y"},
+    {"principal": 7500000, "rate": "8.5", "tenure_years": 25, "description": "75L @ 8.5% for 25y"},
+    {"principal": 15000000, "rate": "9.25", "tenure_years": 25, "description": "1.5Cr @ 9.25% for 25y"}
+  ],
+  "boundary_principal": [
+    {"principal": 1, "rate": "9", "tenure_years": 20, "description": "minimum supported: Rs.1"},
+    {"principal": 100, "rate": "9", "tenure_years": 20, "description": "minimum + small: Rs.100"},
+    {"principal": 19900000, "rate": "9", "tenure_years": 20, "description": "just below UI slider max: Rs.1.99cr"},
+    {"principal": 20000000, "rate": "9", "tenure_years": 20, "description": "UI slider max: Rs.2cr"}
+  ],
+  "boundary_rate": [
+    {"principal": 5000000, "rate": "5", "tenure_years": 20, "description": "min slider: 5%"},
+    {"principal": 5000000, "rate": "5.25", "tenure_years": 20, "description": "just above min slider: 5.25%"},
+    {"principal": 5000000, "rate": "19.75", "tenure_years": 20, "description": "just below max slider: 19.75%"},
+    {"principal": 5000000, "rate": "20", "tenure_years": 20, "description": "max slider: 20%"}
+  ],
+  "boundary_tenure_months": [
+    {"principal": 5000000, "rate": "9", "tenure_months": 1, "description": "1 month (shortest possible)"},
+    {"principal": 5000000, "rate": "9", "tenure_months": 2, "description": "2 months"},
+    {"principal": 5000000, "rate": "9", "tenure_months": 12, "description": "1 year (12 months)"},
+    {"principal": 5000000, "rate": "9", "tenure_months": 360, "description": "30 years (360 months, slider max)"}
+  ],
+  "equivalence_partitions": [
+    {"principal": 10000, "rate": "9", "tenure_years": 5, "description": "small loan: Rs.10K"},
+    {"principal": 50000, "rate": "9", "tenure_years": 5, "description": "small loan: Rs.50K"},
+    {"principal": 100000, "rate": "9", "tenure_years": 5, "description": "small loan: Rs.1L"},
+    {"principal": 500000, "rate": "9", "tenure_years": 10, "description": "medium loan: Rs.5L"},
+    {"principal": 1000000, "rate": "9", "tenure_years": 10, "description": "medium loan: Rs.10L"},
+    {"principal": 10000000, "rate": "9", "tenure_years": 20, "description": "large loan: Rs.1Cr"},
+    {"principal": 20000000, "rate": "9", "tenure_years": 20, "description": "large loan: Rs.2Cr (UI slider max)"}
+  ]
+}
