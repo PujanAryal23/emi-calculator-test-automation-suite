@@ -20,17 +20,17 @@ jobs:
   smoke:
     name: Smoke (chromium)
     if: github.event_name == 'pull_request' || github.event_name == 'push'
-    runs-on: [self-hosted, macOS]
+    runs-on: ubuntu-latest
     env:
       HEADLESS: "true"
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python 3.12 (brew) in a venv
-        run: |
-          /opt/homebrew/opt/python@3.12/bin/python3.12 -m venv .venv
-          echo "$PWD/.venv/bin" >> $GITHUB_PATH
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
       - run: pip install -e .
-      - run: playwright install chromium
+      - run: playwright install --with-deps chromium
       - run: pytest -m smoke -n 2 --browser chromium
       - uses: actions/upload-artifact@v4
         if: always()
@@ -43,17 +43,17 @@ jobs:
   sanity:
     name: Sanity (chromium)
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: [self-hosted, macOS]
+    runs-on: ubuntu-latest
     env:
       HEADLESS: "true"
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python 3.12 (brew) in a venv
-        run: |
-          /opt/homebrew/opt/python@3.12/bin/python3.12 -m venv .venv
-          echo "$PWD/.venv/bin" >> $GITHUB_PATH
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
       - run: pip install -e .
-      - run: playwright install chromium
+      - run: playwright install --with-deps chromium
       - run: pytest -m "smoke or sanity" -n 4 --browser chromium
       - uses: actions/upload-artifact@v4
         if: always()
@@ -66,7 +66,7 @@ jobs:
   regression:
     name: Regression (${{ matrix.browser }})
     if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.tier == 'regression')
-    runs-on: [self-hosted, macOS]
+    runs-on: ubuntu-latest
     env:
       HEADLESS: "true"
     strategy:
@@ -75,12 +75,12 @@ jobs:
         browser: [chromium, firefox]
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python 3.12 (brew) in a venv
-        run: |
-          /opt/homebrew/opt/python@3.12/bin/python3.12 -m venv .venv
-          echo "$PWD/.venv/bin" >> $GITHUB_PATH
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
       - run: pip install -e .
-      - run: playwright install ${{ matrix.browser }}
+      - run: playwright install --with-deps ${{ matrix.browser }}
       - run: pytest -m "regression or sanity or smoke" -n 4 --browser ${{ matrix.browser }} --reruns 1 --reruns-delay 2
       - uses: actions/upload-artifact@v4
         if: always()
@@ -93,7 +93,7 @@ jobs:
   extended:
     name: Extended (weekly)
     if: github.event_name == 'workflow_dispatch' && inputs.tier == 'extended'
-    runs-on: [self-hosted, macOS]
+    runs-on: ubuntu-latest
     env:
       HEADLESS: "true"
     strategy:
@@ -102,12 +102,12 @@ jobs:
         browser: [chromium, firefox, webkit]
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python 3.12 (brew) in a venv
-        run: |
-          /opt/homebrew/opt/python@3.12/bin/python3.12 -m venv .venv
-          echo "$PWD/.venv/bin" >> $GITHUB_PATH
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
       - run: pip install -e .
-      - run: playwright install ${{ matrix.browser }}
+      - run: playwright install --with-deps ${{ matrix.browser }}
       - run: pytest -m "extended or regression or sanity or smoke" -n 6 --browser ${{ matrix.browser }} --reruns 1 --reruns-delay 2
       - uses: actions/upload-artifact@v4
         if: always()
